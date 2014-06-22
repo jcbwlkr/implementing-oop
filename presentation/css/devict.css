@@ -1,0 +1,12 @@
+body > div.reveal:after {
+  content: 'irc: #devict';
+  font-style: normal;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.reveal section img[alt=devICT] {
+  border: 0;
+  box-shadow: none;
+}

@@ -1,0 +1,36 @@
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+div.citations {
+    font-size: 0.5em;
+    position: relative;
+    bottom: 10px;
+}
+
+.slides code {
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.slides code:before {
+    color: white;
+    position: absolute;
+    top: -1em;
+    left: 0;
+    width: 100%;
+    background: rgb(190, 117, 39);
+    text-indent: 15px;
+}
+
+.slides code.php:before {
+    content: "PHP";
+}
+
+.slides code.ruby:before {
+    content: "Ruby";
+}
