@@ -34,3 +34,7 @@ div.citations {
 .slides code.ruby:before {
     content: "Ruby";
 }
+
+.col {
+    width: 35%;
+}

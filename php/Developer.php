@@ -1,8 +1,13 @@
 <?php
 
 class Developer {
-    public $name;
-    private $secret = "Foo";
+    public function sayHi() {
+        print "Hi";
+    }
+
+    private function revealSecret() {
+        print "I code in MS Word";
+    }
 }
 //class Developer {
     //function __construct() {

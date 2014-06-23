@@ -4,14 +4,13 @@ By: Jacob Walker
 ![devICT](/img/devict-logo.png)
 -----------------------------
 # About Me
-<div class="pull-left">
-![Baby Jacob](http://jacob-walker.com/img/old_machine.jpg)
+<div class="pull-left col">
+![Baby Jacob](http://jacob-walker.com/img/old-machine-big.jpg)
 </div>
 
 * Full stack developer; Prefers back end
 * About 5 years professional experience
-* Focused is modern OO PHP
-
+* Focused on modern OO PHP
 -----------------------------
 # What Is OOP?
 Object Oriented Programming
@@ -22,7 +21,7 @@ Object Oriented Programming
 * OOP
 ---
 # Language Support
-150+ of languages with different degrees / implementations. *
+150+ languages with different degrees / implementations. *
 
 This talk focuses on PHP and Ruby.
 
@@ -48,7 +47,7 @@ An **object** is a specific instance of a **class**.
 # Objects and Classes
 If *Developer* is a **class**...
 
-Then *Bob* and *Joe* are **objects** or **instances** of *Developer*.
+Then *Jacob* and *Seth* are **objects** or **instances** of *Developer*.
 ---
 # Defining Classes
 ~~~php
@@ -169,11 +168,11 @@ seth.greet
 # Access modifiers
 Control who can get to properties / methods.
 
-* Public: Anybody
-* Private: Nobody except this class
-* Protected: Nobody except this class and children
+* Public: Anybody can access
+* Private: Not available for public consumption
+* Protected: Like private but with exceptions \*
 ---
-# Private PHP
+# Private Properties
 ~~~php
 class Developer {
     public $name;
@@ -191,22 +190,123 @@ print $jacob->secret;
 // PHP Fatal error:  Cannot access private property Developer::$secret
 ~~~
 ---
-# Restricting Ruby
+# Private Methods
+~~~php
+class Developer {
+    public function greet() {
+        print "Hello there!";
+    }
+
+    private function revealSecret() {
+        print "I code in MS Word";
+    }
+}
+
+$jacob = new Developer;
+
+$jacob->greet(); // Output: "Hello there!"
+
+$jacob->revealSecret();
+// PHP Fatal error:  Call to private method Developer::revealSecret()
+~~~
+---
+# Private Properties
+Ruby properties can not be accessed directly from outside a class. Make available through methods.
 ~~~ruby
 class Developer
-    def initialize name
-        @name = name
+    def initialize
+        @secret = "Foo"
     end
-
-    def greet
-        puts "Hi, I'm #{@name}."
+    def name
+        @name
+    end
+    def name=(name)
+        @name = name
     end
 end
 
-seth = Developer.new("Seth")
-seth.greet
-# Output: "Hi, I'm Seth."
+seth = Developer.new
+seth.name = "Seth"
+puts seth.name # Output: "Seth"
+puts seth.secret
+# NoMethodError: undefined method `secret'
 ~~~
+---
+# Private Properties
+Ruby provides shorthands
+TODO better practice for "privates"?
+~~~ruby
+class Developer
+    attr_accessor :name
+
+    def initialize
+        @secret = "Foo"
+    end
+end
+
+seth = Developer.new
+seth.name = "Seth"
+puts seth.name # Output: "Seth"
+~~~
+---
+# Private Methods
+~~~php
+class Developer {
+    public function greet() {
+        print "Hello there!";
+    }
+
+    private function revealSecret() {
+        print "I code in MS Word";
+    }
+}
+
+$jacob = new Developer;
+
+$jacob->greet(); // Output: "Hello there!"
+
+$jacob->revealSecret();
+// PHP Fatal error:  Call to private method Developer::revealSecret()
+~~~
+---
+# Private Methods
+~~~ruby
+class Developer
+    def greet
+        puts "Hello there!"
+    end
+
+    private
+
+    def revealSecret
+        puts "I code in MS Word"
+    end
+end
+
+seth = Developer.new
+seth.greet # Output: "Hello there!"
+seth.revealSecret
+# NoMethodError: private method `revealSecret' called
+~~~
+---
+# Private Methods
+~~~ruby
+class Developer
+    def greet
+        puts "Hello there!"
+    end
+
+    def revealSecret
+        puts "I code in MS Word"
+    end
+
+    private :revealSecret
+end
+~~~
+-----------------------------
+# Inheritance
+---
+TODO protected properties / methods
 -----------------------------
 # The Final keyword
 -----------------------------
@@ -215,8 +315,6 @@ seth.greet
 # Static properties
 -----------------------------
 # Static methods
------------------------------
-# Inheritance
 -----------------------------
 # Abstract classes
 -----------------------------
