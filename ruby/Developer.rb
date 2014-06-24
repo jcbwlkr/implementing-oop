@@ -1,15 +1,21 @@
-class Coder
-    def code
-        puts "Code!"
+class Developer
+    # Class variable
+    @@devs_made = 0
+
+    # Class method
+    def self.devs_made
+        @@devs_made
+    end
+
+    def initialize
+        @@devs_made += 1
     end
 end
 
-class Developer < Coder
-    def develop
-        puts "Develop!"
-    end
-end
+puts Developer.devs_made # Output: 0
 
 seth = Developer.new
-seth.code    # Output: "Code!"
-seth.develop # Output: "Develop!"
+puts Developer.devs_made # Output: 1
+
+jarrett = Developer.new
+puts Developer.devs_made # Output: 2

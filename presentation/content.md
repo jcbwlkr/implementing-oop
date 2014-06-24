@@ -47,7 +47,7 @@ An **object** is a specific instance of a **class**.
 # Objects and Classes
 If *Developer* is a **class**...
 
-Then *Jacob* and *Seth* are **objects** or **instances** of *Developer*.
+Then *Jacob* and *Seth* are **objects** or **instances** of class *Developer*.
 '''
 # Defining Classes
 ~~~php
@@ -84,8 +84,7 @@ class Developer {
 }
 
 $jacob = new Developer;
-$jacob->code();
-// Output: "1337 c0d3r"
+$jacob->code(); // Output: 1337 c0d3r
 ~~~
 '''
 # Learn to Code in Ruby
@@ -97,8 +96,7 @@ class Developer
 end
 
 seth = Developer.new
-seth.code
-# Output: "1337 c0d3r"
+seth.code # Output: 1337 c0d3r
 ~~~
 '''''''''''''''''''''''''''''
 # Constructors
@@ -112,8 +110,7 @@ class Developer {
     }
 }
 
-$jacob = new Developer;
-// Output: "Hello, world!"
+$jacob = new Developer; // Output: Hello, world!
 ~~~
 '''
 # Constructors in Ruby
@@ -124,8 +121,7 @@ class Developer
     end
 end
 
-seth = Developer.new
-# Output: "Hello, world!"
+seth = Developer.new # Output: Hello, world!
 ~~~
 '''''''''''''''''''''''''''''
 # Properties
@@ -144,8 +140,7 @@ class Developer {
 }
 
 $jacob = new Developer("Jacob");
-$jacob->greet();
-// Output: "Hi, I'm Jacob."
+$jacob->greet(); // Output: Hi, I'm Jacob.
 ~~~
 '''
 # Thy Name is Ruby
@@ -161,8 +156,7 @@ class Developer
 end
 
 seth = Developer.new("Seth")
-seth.greet
-# Output: "Hi, I'm Seth."
+seth.greet # Output: Hi, I'm Seth.
 ~~~
 '''''''''''''''''''''''''''''
 # Inheritance
@@ -184,8 +178,8 @@ class Developer extends Coder {
 }
 
 $jacob = new Developer;
-print $jacob->code(); // Output: "Code!"
-print $jacob->develop(); // Output: "Develop!"
+print $jacob->code(); // Output: Code!
+print $jacob->develop(); // Output: Develop!
 ~~~
 '''
 # Inheritance in Ruby
@@ -203,8 +197,8 @@ class Developer < Coder
 end
 
 seth = Developer.new
-seth.code    # Output: "Code!"
-seth.develop # Output: "Develop!"
+seth.code    # Output: Code!
+seth.develop # Output: Develop!
 ~~~
 '''
 # Inheriting Types
@@ -261,12 +255,10 @@ class Developer {
 $jacob = new Developer;
 
 $jacob->name = "Jacob";
-print $jacob->name; // Output: "Jacob."
+print $jacob->name; // Output: Jacob
 
-$jacob->secret = "Bar";
-// PHP Fatal error:  Cannot access private property Developer::$secret
-print $jacob->secret;
-// PHP Fatal error:  Cannot access private property Developer::$secret
+$jacob->secret = "Bar"; // PHP Fatal error:  Cannot access private property Developer::$secret
+print $jacob->secret;   // PHP Fatal error:  Cannot access private property Developer::$secret
 ~~~
 '''
 # Private Properties
@@ -286,18 +278,18 @@ class Developer {
 
 $jacob = new Developer;
 $jacob->setName("Jacob");
-print $jacob->getName(); // Output: "Jacob"
+print $jacob->getName(); // Output: Jacob
 ~~~
 '''
 # Protected Properties
 ~~~php
 class Coder {
-    private $name;
-    protected $TODO;
+    private $code_style;
+    protected $name;
 }
 
 class Developer extends Coder {
-    // Can access 
+    // Can access $this->name but not $this->code_style
 }
 ~~~
 '''
@@ -315,10 +307,9 @@ class Developer {
 
 $jacob = new Developer;
 
-$jacob->greet(); // Output: "Hello there!"
+$jacob->greet(); // Output: Hello there!
 
-$jacob->revealSecret();
-// PHP Fatal error:  Call to private method Developer::revealSecret()
+$jacob->revealSecret(); // PHP Fatal error:  Call to private method Developer::revealSecret()
 ~~~
 '''
 # Protected Methods
@@ -339,7 +330,14 @@ class Developer extends Coder {
 // Can not call either method
 ~~~
 '''
-# Private Properties
+# Visibility in Ruby
+Control who can call methods.
+
+* **Public**: Available to everyone.
+* **Private**: Only available in class and subclasses and only that instance.
+* **Protected**: Like private, but available to other instances.
+'''
+# Visibility on Properties
 Ruby properties can not be accessed directly from outside a class. Make available through methods.
 ~~~ruby
 class Developer
@@ -356,17 +354,17 @@ end
 
 seth = Developer.new
 seth.name = "Seth"
-puts seth.name # Output: "Seth"
-puts seth.secret
-# NoMethodError: undefined method `secret'
+puts seth.name # Output: Seth
+puts seth.secret # NoMethodError: undefined method `secret'
 ~~~
 '''
-# Private Properties
+# Visibility on Properties
 Ruby provides shorthands
-TODO better practice for "privates"?
 ~~~ruby
 class Developer
-    attr_accessor :name
+    attr_accessor :name # Makes a getter and setter
+    attr_reader   :name # Makes a getter
+    attr_writer   :name # Makes a setter
 
     def initialize
         @secret = "Foo"
@@ -375,30 +373,10 @@ end
 
 seth = Developer.new
 seth.name = "Seth"
-puts seth.name # Output: "Seth"
+puts seth.name # Output: Seth
 ~~~
 '''
-# Private Methods
-~~~php
-class Developer {
-    public function greet() {
-        print "Hello there!";
-    }
-
-    private function revealSecret() {
-        print "I code in MS Word";
-    }
-}
-
-$jacob = new Developer;
-
-$jacob->greet(); // Output: "Hello there!"
-
-$jacob->revealSecret();
-// PHP Fatal error:  Call to private method Developer::revealSecret()
-~~~
-'''
-# Private Methods
+# Private in Ruby
 ~~~ruby
 class Developer
     def greet
@@ -413,12 +391,11 @@ class Developer
 end
 
 seth = Developer.new
-seth.greet # Output: "Hello there!"
-seth.revealSecret
-# NoMethodError: private method `revealSecret' called
+seth.greet # Output: Hello there!
+seth.revealSecret # NoMethodError: private method `revealSecret' called
 ~~~
 '''
-# Private Methods
+# Private in Ruby
 ~~~ruby
 class Developer
     def greet
@@ -433,24 +410,195 @@ class Developer
 end
 ~~~
 '''
-TODO protected properties / methods
+# Private in Ruby
+Unlike in PHP, private methods available to children
+~~~ruby
+class Coder
+    attr_accessor :password
+    private :password
+
+    def initialize password
+        @password = password
+    end
+end
+
+class Developer < Coder
+    def revealPassword
+        password
+    end
+end
+
+seth = Developer.new("Banana")
+
+puts seth.revealPassword # Banana
+puts seth.password # NoMethodError private method `password' called
+~~~
+'''
+# Protected Vs Private
+~~~ruby
+class Developer
+    attr_reader :hacks, :power
+    protected :power
+    private :hacks
+
+    def initialize hacks, power
+        @hacks = hacks
+        @power = power
+    end
+
+    def is_stronger_than? other_dev
+        power > other_dev.power
+    end
+
+    def is_hackier_than? other_dev
+        hacks > other_dev.hacks
+    end
+end
+
+seth  = Developer.new(83,  9001)
+jacob = Developer.new(174, 8999)
+
+seth.is_stronger_than? jacob # true
+seth.is_hackier_than? jacob # NoMethodError: private method `hacks' called
+~~~
+'''''''''''''''''''''''''''''
+# Method overriding
+TODO
+
+TODO Ruby can redefine methods at run time
 '''''''''''''''''''''''''''''
 # The Final keyword
+TODO
 '''''''''''''''''''''''''''''
 # Constants
+* Constant values that are scoped within a class.
+* Like global constants they cannot be changed.
+* Always public
+* Should be ALL CAPS
+'''
+# Constants in PHP
+~~~php
+class Developer {
+    const EDITOR_VIM   = "vim";
+    const EDITOR_EMACS = "emacs";
+}
+
+print Developer::EDITOR_VIM;   // Output: vim
+print Developer::EDITOR_EMACS; // Output: emacs
+~~~
+'''
+# Constants in Ruby
+~~~ruby
+class Developer
+    EDITOR_VIM   = "vim";
+    EDITOR_EMACS = "emacs";
+end
+
+puts Developer::EDITOR_VIM;   # Output: vim
+puts Developer::EDITOR_EMACS; # Output: emacs
+~~~
 '''''''''''''''''''''''''''''
-# Static properties
+# Statics
+Properties / methods that are associated with a class, not any particular instance.
+'''
+# Statics in PHP
+## Properties
+From within a class, access with "static::" or "self::"
+
+Use class name when outside of the class
+~~~php
+class Developer {
+    public static $devs_made = 0;
+
+    public function __construct() {
+        static::$devs_made++;
+    }
+}
+
+print Developer::$devs_made; // Output: 0
+
+$jacob = new Developer;
+print Developer::$devs_made; // Output: 1
+
+$matthew = new Developer;
+print Developer::$devs_made; // Output: 2
+~~~
+'''
+# Statics in PHP
+## Methods
+~~~php
+class Config {
+    private static $instance;
+
+    public static function getInstance() {
+        return static::$instance ?: new static();
+    }
+
+    // Only this class can call "new Config"
+    private function __construct() {}
+}
+
+$config = Config::getInstance();
+
+$same_config = Config::getInstance();
+~~~
+'''
+# Statics in Ruby
+~~~ruby
+class Developer
+    @@devs_made = 0    # Class variable
+
+    def self.devs_made # Class method
+        @@devs_made
+    end
+
+    def initialize
+        @@devs_made += 1
+    end
+end
+
+seth = Developer.new
+puts Developer.devs_made # Output: 1
+
+jarrett = Developer.new
+puts Developer.devs_made # Output: 2
+~~~
 '''''''''''''''''''''''''''''
-# Static methods
-'''''''''''''''''''''''''''''
-# Abstract classes
+# Abstract Classes / Methods
+A class can be declared **abstract** which means it can not be directly instantiated. Another class must extend it.
+
+**Methods** on an abstract class can also be declared abstract which means a child class must **implement** them.
+'''
+# Abstract PHP
+~~~php
+abstract class Model {
+    abstract public function getTable();
+
+    public function formattedTable() {
+        return strtoupper($this->getTable());
+    }
+}
+
+class User extends Model {
+    public function getTable() {
+        return "users";
+    }
+}
+
+$joe = new User;
+print $joe->formattedTable(); // Output: USERS
+~~~
+'''
+# Abstract Ruby
+Not directly supported. Can simulate with some hackery if needed, but it doesn't really fit the style of Ruby.
 '''''''''''''''''''''''''''''
 # Interfaces
+TODO
+'''''''''''''''''''''''''''''
+# Traits
+TODO
 '''''''''''''''''''''''''''''
 # Best Practices
 * SOLID
 * Dependency Injection
 * Composition over inheritance
-'''''''''''''''''''''''''''''
-# If there's time
-* Method overriding

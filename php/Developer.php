@@ -1,32 +1,19 @@
 <?php
-class Coder {
+
+abstract class Model {
+    abstract public function getTable();
+
+    public function formattedTable() {
+        return strtoupper($this->getTable());
+    }
 }
 
-class Developer extends Coder {
+class User extends Model {
+    public function getTable() {
+        return "users";
+    }
 }
 
-$dev   = new Developer;
-$coder = new Coder;
+$joe = new User;
 
-$dev instanceof Coder && print "Dev is a Coder";
-$dev instanceof Developer && print "Dev is a Developer";
-$coder instanceof Coder && print "Coder is a Coder";
-$coder instanceof Developer || print "Coder is not a Developer";
-
-//class Developer {
-    //public function sayHi() {
-        //print "Hi";
-    //}
-
-    //private function revealSecret() {
-        //print "I code in MS Word";
-    //}
-//}
-//class Developer {
-    //function __construct() {
-        //print "Hello, world!";
-    //}
-
-    //function code() {
-    //}
-//}
+print $joe->formattedTable(); // Output:: USERS
