@@ -1,18 +1,15 @@
-class Developer
-    def greet
-        puts "Hello there!"
-    end
-
-    def proxy
-        revealSecret
-    end
-
-    private
-
-    def revealSecret
-        puts "I code in MS Word"
+class Coder
+    def code
+        puts "Code!"
     end
 end
 
-require "irb"
-IRB.start
+class Developer < Coder
+    def develop
+        puts "Develop!"
+    end
+end
+
+seth = Developer.new
+seth.code    # Output: "Code!"
+seth.develop # Output: "Develop!"
