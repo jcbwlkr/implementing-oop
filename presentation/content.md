@@ -1,7 +1,7 @@
 # Implementing OOP
 By: Jacob Walker
 
-![devICT](/img/devict-logo.png)
+![devICT](https://raw.githubusercontent.com/devict/devict-presentation-template/master/presentation/img/devict-logo.png)
 '''''''''''''''''''''''''''''
 # About Me
 <div class="pull-left col">
