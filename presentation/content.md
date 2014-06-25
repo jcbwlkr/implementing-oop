@@ -810,9 +810,9 @@ class Pizza implements Bakeable {
 ~~~
 ~~~php
 class Oven {
-    public function bake(Bakeable $food) {
-        $cook_time = $food->getCookTime();
-        $cook_temp = $food->getCookTemp();
+    public function bake(Bakeable $bakeable) {
+        $cook_time = $bakeable->getCookTime();
+        $cook_temp = $bakeable->getCookTemp();
     }
 }
 ~~~
