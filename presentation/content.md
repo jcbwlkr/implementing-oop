@@ -221,7 +221,23 @@ $dev instanceof Developer && print "Dev is a Developer";
 $coder instanceof Coder && print "Coder is a Coder";
 $coder instanceof Developer || print "Coder is not a Developer";
 ~~~
-
+'''
+# Hierarchies
+* There is no limit on the number of superclasses upstream from any given class.
+* Multiple classes can extend from the same base class.
+* PHP, Ruby, and many other OO languages only allow a single parent per class (no
+**multiple inheritance**) but some languages allow it.
+'''
+# Hierarchies
+~~~php
+class Human {}                         //             Human
+                                       //               |
+class Coder extends Human {}           //             Coder
+                                       //              / \
+class Developer extends Coder {}       //             /   \
+                                       //            /     \
+class Designer extends Coder {}        //       Developer Designer
+~~~
 '''''''''''''''''''''''''''''
 # Access modifiers
 Control who can get to properties / methods (visibility).
@@ -237,7 +253,7 @@ Different meanings in different languages.
 
 We'll cover PHP then Ruby
 
-'''
+'''''''''''''''''''''''''''''
 # Visibility in PHP
 Control who can get to properties / methods.
 
@@ -329,7 +345,7 @@ class Developer extends Coder {
 
 // Can not call either method
 ~~~
-'''
+'''''''''''''''''''''''''''''
 # Visibility in Ruby
 Control who can call methods.
 
@@ -337,7 +353,7 @@ Control who can call methods.
 * **Private**: Only available in class and subclasses and only that instance.
 * **Protected**: Like private, but available to other instances.
 '''
-# Visibility on Properties
+# Private Properties
 Ruby properties can not be accessed directly from outside a class. Make available through methods.
 ~~~ruby
 class Developer
@@ -358,7 +374,7 @@ puts seth.name # Output: Seth
 puts seth.secret # NoMethodError: undefined method `secret'
 ~~~
 '''
-# Visibility on Properties
+# Private Properties
 Ruby provides shorthands
 ~~~ruby
 class Developer
@@ -376,7 +392,7 @@ seth.name = "Seth"
 puts seth.name # Output: Seth
 ~~~
 '''
-# Private in Ruby
+# Private Methods
 ~~~ruby
 class Developer
     def greet
@@ -395,7 +411,7 @@ seth.greet # Output: Hello there!
 seth.revealSecret # NoMethodError: private method `revealSecret' called
 ~~~
 '''
-# Private in Ruby
+# Private Methods
 ~~~ruby
 class Developer
     def greet
@@ -410,7 +426,7 @@ class Developer
 end
 ~~~
 '''
-# Private in Ruby
+# Private Methods
 Unlike in PHP, private methods available to children
 ~~~ruby
 class Coder
@@ -462,13 +478,102 @@ seth.is_stronger_than? jacob # true
 seth.is_hackier_than? jacob # NoMethodError: private method `hacks' called
 ~~~
 '''''''''''''''''''''''''''''
-# Method overriding
-TODO
+# Method Overriding
+A child class can **override** or redefine a method that was defined in a parent class
+'''
+# Method Overriding
+~~~php
+class Coder {
+    public function type() {
+        print "I type like this!";
+    }
+}
 
-TODO Ruby can redefine methods at run time
+class Developer extends Coder {
+    public function type() {
+        print "JK, I type like this!";
+    }
+}
+
+$jacob = new Developer;
+$jacob->type(); // Output: JK, I type like this!
+~~~
+'''
+# Method Overriding
+Can call your parent's version of a method by using the `parent::` prefix.
+~~~php
+class TestingBase extends PHPUnit_Framework_TestCase {
+    protected $logger;
+
+    public function setUp() {
+        $this->logger = new Logger();
+    }
+}
+
+class PayrollTest extends TestingBase {
+    protected $payroll_engine;
+
+    public function setUp() {
+        parent::setUp();
+        $this->payroll_engine = new Payroll_Engine();
+    }
+}
+~~~
+'''
+# Overriding Ruby
+Use `super` to call the same method in a parent class. 
+~~~ruby
+class Dancer
+    def dance
+        puts "Boogie!"
+    end
+end
+
+class DiscoDancer < Dancer
+    def dance
+        super
+        puts "Boogie Woogie!"
+    end
+end
+
+seth = DiscoDancer.new
+seth.dance # Output: Boogie! Boogie Woogie!
+~~~
+Side note, `super` will automatically pass all args unless you specify otherwise
+'''
+# Override on the Fly
+Ruby can redefine methods at run time
+~~~ruby
+class Developer
+    def code
+        puts "Bits!"
+    end
+end
+
+# Some time later
+
+class Developer
+    def code
+        puts "Hacks!"
+    end
+end
+
+seth = Developer.new
+seth.code # Output: Hacks!
+~~~
 '''''''''''''''''''''''''''''
-# The Final keyword
-TODO
+# The Final Keyword
+In PHP a method marked `final` can not be overriden by subclasses. Use with
+caution.
+~~~php
+class Foo {
+    final public function bar() {
+    }
+}
+~~~
+
+Final methods are not natively supported in Ruby as it goes against the spirit
+of the language.
 '''''''''''''''''''''''''''''
 # Constants
 * Constant values that are scoped within a class.
@@ -503,7 +608,7 @@ Properties / methods that are associated with a class, not any particular instan
 '''
 # Statics in PHP
 ## Properties
-From within a class, access with "static::" or "self::"
+From within a class, access with `static::` or `self::`
 
 Use class name when outside of the class
 ~~~php
@@ -592,13 +697,18 @@ print $joe->formattedTable(); // Output: USERS
 # Abstract Ruby
 Not directly supported. Can simulate with some hackery if needed, but it doesn't really fit the style of Ruby.
 '''''''''''''''''''''''''''''
-# Interfaces
-TODO
-'''''''''''''''''''''''''''''
 # Traits
 TODO
 '''''''''''''''''''''''''''''
+# Namespaces
+TODO?
+'''''''''''''''''''''''''''''
+# Interfaces
+TODO
+TODO Paintable example
+'''''''''''''''''''''''''''''
 # Best Practices
 * SOLID
+* Design Patterns
 * Dependency Injection
-* Composition over inheritance
+* Composition over Inheritance

@@ -1,19 +1,16 @@
 <?php
-
-abstract class Model {
-    abstract public function getTable();
-
-    public function formattedTable() {
-        return strtoupper($this->getTable());
+class TestingBase extends PHPUnit_Framework_TestCase {
+    protected $logger;
+    public function setUp() {
+        $this->logger = new Logger();
     }
 }
 
-class User extends Model {
-    public function getTable() {
-        return "users";
+class PayrollTest extends TestingBase {
+    protected $payroll_engine;
+    public function setUp() {
+        parent::setUp();
+
+        $this->payroll_engine = new Payroll_Engine();
     }
 }
-
-$joe = new User;
-
-print $joe->formattedTable(); // Output:: USERS

@@ -1,21 +1,16 @@
 class Developer
-    # Class variable
-    @@devs_made = 0
-
-    # Class method
-    def self.devs_made
-        @@devs_made
-    end
-
-    def initialize
-        @@devs_made += 1
+    def code
+        puts "Bits!"
     end
 end
 
-puts Developer.devs_made # Output: 0
+# Some time later
+
+class Developer
+    def code
+        puts "Hacks!"
+    end
+end
 
 seth = Developer.new
-puts Developer.devs_made # Output: 1
-
-jarrett = Developer.new
-puts Developer.devs_made # Output: 2
+seth.code # Output: Hacks!
