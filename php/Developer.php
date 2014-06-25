@@ -1,16 +1,28 @@
 <?php
-class TestingBase extends PHPUnit_Framework_TestCase {
-    protected $logger;
-    public function setUp() {
-        $this->logger = new Logger();
-    }
+
+interface Bakeable {
+    public function getCookTime();
+    public function getCookTemp();
 }
 
-class PayrollTest extends TestingBase {
-    protected $payroll_engine;
-    public function setUp() {
-        parent::setUp();
+class ClayPot implements Bakeable {
+    public function getCookTime() { return 300; }
+    public function getCookTemp() { return 950; }
+}
 
-        $this->payroll_engine = new Payroll_Engine();
+class Cake implements Bakeable {
+    public function getCookTime() { return 18; }
+    public function getCookTemp() { return 350; }
+}
+
+class Pizza implements Bakeable {
+    public function getCookTime() { return 18; }
+    public function getCookTemp() { return 350; }
+}
+
+class Oven {
+    public function bake(Bakeable $food) {
+        $cook_time = $food->getCookTime();
+        $cook_temp = $food->getCookTemp();
     }
 }

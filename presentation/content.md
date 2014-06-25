@@ -225,8 +225,9 @@ $coder instanceof Developer || print "Coder is not a Developer";
 # Hierarchies
 * There is no limit on the number of superclasses upstream from any given class.
 * Multiple classes can extend from the same base class.
-* PHP, Ruby, and many other OO languages only allow a single parent per class (no
-**multiple inheritance**) but some languages allow it.
+* PHP, Ruby, and many other OO languages only allow a single parent per class (
+  **single inheritance**) but some languages allow more than one (**multiple
+  inheritance**)
 '''
 # Hierarchies
 ~~~php
@@ -697,15 +698,125 @@ print $joe->formattedTable(); // Output: USERS
 # Abstract Ruby
 Not directly supported. Can simulate with some hackery if needed, but it doesn't really fit the style of Ruby.
 '''''''''''''''''''''''''''''
-# Traits
-TODO
+# Traits / Mixins
+TODO?
 '''''''''''''''''''''''''''''
-# Namespaces
+# Namespaces / Modules
 TODO?
 '''''''''''''''''''''''''''''
 # Interfaces
-TODO
-TODO Paintable example
+* An OO **interface** is a contract. A class that **implements** that interface
+  guarantees it has the public methods of the interface.
+* Can be used instead of or in conjunction with inheritance.
+* Not a feature of Ruby (it uses duck typing)
+'''
+# Interfaces
+~~~php
+interface WordTyper {
+    public function type();
+}
+
+class Designer implements WordTyper {
+    public function type() {
+        print "CSS!";
+    }
+}
+
+class Developer implements WordTyper {
+    public function type() {
+        print "PHP!";
+    }
+}
+~~~
+~~~php
+if ($object instanceof WordTyper) {
+    $object->type();
+}
+~~~
+'''''''''''''''''''''''''''''
+# An Example
+Writing software to run an automated pizza joint
+## of the **future**!
+'''
+# An Example
+Starting with classes **Pizza** and **Oven**
+~~~php
+class Pizza {
+}
+
+class Oven {
+    public function bake(Pizza $pizza) {
+        $bake_time = 17;
+        $bake_temp = 425;
+    }
+}
+~~~
+'''
+# Diversification!
+Boss decides to maximize oven time by offering cakes
+'''
+# Diversification!
+~~~php
+abstract class Food {
+    abstract public function getBakeTime();
+    abstract public function getBakeTemp();
+}
+
+class Cake extends Food {
+    public function getBakeTime() { return 30; }
+    public function getBakeTemp() { return 350; }
+}
+
+class Pizza extends Food {
+    public function getBakeTime() { return 17; }
+    public function getBakeTemp() { return 425; }
+}
+~~~
+~~~php
+class Oven {
+    public function bake(Food $food) {
+        $bake_time = $food->getBakeTime();
+        $bake_temp = $food->getBakeTemp();
+    }
+}
+~~~
+'''
+# Branching Out
+Boss acquire the pottery / craft business next door
+
+Need to expand our software to run the kiln.
+'''
+# Branching Out
+~~~php
+interface Bakeable {
+    public function getCookTime();
+    public function getCookTemp();
+}
+
+class ClayPot implements Bakeable {
+    public function getCookTime() { return 300; }
+    public function getCookTemp() { return 950; }
+}
+
+class Cake implements Bakeable {
+    public function getCookTime() { return 18; }
+    public function getCookTemp() { return 350; }
+}
+
+class Pizza implements Bakeable {
+    public function getCookTime() { return 18; }
+    public function getCookTemp() { return 350; }
+}
+~~~
+~~~php
+class Oven {
+    public function bake(Bakeable $food) {
+        $cook_time = $food->getCookTime();
+        $cook_temp = $food->getCookTemp();
+    }
+}
+~~~
+
 '''''''''''''''''''''''''''''
 # Best Practices
 * SOLID
