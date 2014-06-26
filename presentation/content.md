@@ -11,6 +11,7 @@ By: Jacob Walker
 * Full stack developer; Prefers back end
 * About 5 years professional experience
 * Focused on modern OO PHP
+* [http://jacob-walker.com](http://jacob-walker.com)
 '''''''''''''''''''''''''''''
 # What Is OOP?
 Object Oriented Programming
@@ -698,12 +699,6 @@ print $joe->formattedTable(); // Output: USERS
 # Abstract Ruby
 Not directly supported. Can simulate with some hackery if needed, but it doesn't really fit the style of Ruby.
 '''''''''''''''''''''''''''''
-# Traits / Mixins
-TODO?
-'''''''''''''''''''''''''''''
-# Namespaces / Modules
-TODO?
-'''''''''''''''''''''''''''''
 # Interfaces
 * An OO **interface** is a contract. A class that **implements** that interface
   guarantees it has the public methods of the interface.
@@ -818,8 +813,10 @@ class Oven {
 ~~~
 
 '''''''''''''''''''''''''''''
-# Best Practices
+# Additional Reading
 * SOLID
 * Design Patterns
 * Dependency Injection
 * Composition over Inheritance
+* Namespaces / Modules
+* Traits / Mixins
