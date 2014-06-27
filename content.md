@@ -2,6 +2,8 @@
 By: Jacob Walker
 
 ![devICT](https://raw.githubusercontent.com/devict/devict-presentation-template/master/presentation/img/devict-logo.png)
+
+[Video on YouTube](https://www.youtube.com/watch?v=7QoEfPYULXM)
 '''''''''''''''''''''''''''''
 # About Me
 <div class="pull-left col">
